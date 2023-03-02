@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/DBanfieldKeller/login-service/issues"
   },
-  "homepage": "https://github.com/DBanfieldKeller/login-service#readme"
+  "homepage": "https://github.com/DBanfieldKeller/login-service#readme",
+  "dependencies": {
+    "aws-sdk": "^2.1326.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.0"
+  }
 }
