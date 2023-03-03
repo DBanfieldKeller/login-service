@@ -26,4 +26,6 @@ exports.handler = async (event) => {
         default:
             response - util.buildResponse(404, "404 Not Found");
     }
+
+    return response
 }

@@ -32,5 +32,9 @@ exports.register = async (userInfo) => {
         return util.buildResponse(503, { message: "server error"});
     }
 
+    const response = util.buildResponse(200, { username: username})
+
+    console.log(response)
+
     return util.buildResponse(200, { username: username});
 };

@@ -10,10 +10,11 @@ const dynamoDB = new AWS.DynamoDB.DocumentClient({ apiVersion: "2012-08-10"});
 const userTable = "user-login";
 
 exports.getUser = async (username) => {
+    const lowerCaseName = username.toLowerCase()
     const params = {
         TableName: userTable,
         Key: {
-            username: username,
+            username: lowerCaseName,
         },
     };
     return await dynamoDB

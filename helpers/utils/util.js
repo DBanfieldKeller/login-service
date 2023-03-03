@@ -7,4 +7,4 @@ exports.buildResponse = (statusCode, body) => {
         },
         body: JSON.stringify(body),
     }
-}
+};
