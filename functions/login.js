@@ -33,7 +33,6 @@ exports.login = async (user) => {
 
     const userInfo = {
         username: dynamoUser.username,
-        // TODO: review name
         name: dynamoUser.name,
     };
 
