@@ -4,6 +4,7 @@ exports.buildResponse = (statusCode, body) => {
         headers: {
             "Access-Control-Allow-Origin": "*",
             "Content-Type" : "application/json",
+            "Token" : body.token
         },
         body: JSON.stringify(body),
     }

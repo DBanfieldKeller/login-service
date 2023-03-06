@@ -43,5 +43,8 @@ exports.login = async (user) => {
         token: token,
     };
 
+    console.log(token)
+    console.log(typeof token)
+
     return util.buildResponse(200, response)
 };
