@@ -1,5 +1,4 @@
 const jwt = require ("jsonwebtoken");
-const userDB = require ("../dbHelpers/user");
 
 exports.generateToken = (userInfo) => {
     if (!userInfo) {
@@ -11,8 +10,8 @@ exports.generateToken = (userInfo) => {
     });
 };
 
-exports.verifyToken = (token) => {
-    return jwt.verify(token, process.env.JWT_SECRET, async (error, response) => {
+exports.userFromToken = (token) => {
+    return jwt.verify(token, process.env.JWT_SECRET, (error, response) => {
         if (error) {
             return {
                 verfied: false,
@@ -20,17 +19,8 @@ exports.verifyToken = (token) => {
                 error: error,
             };
         }
-        // lookup user name
-        const dynamoUser = await userDB.getUser(response.username);
-        if (response.username !== dynamoUser) {
-            return {
-                verified: false,
-                message: "Username does not exist",
-            };
-        }
         return {
-            verified: true,
-            message: "verified",
+             username: response.username
         };
     });
 };

@@ -1,7 +1,8 @@
 const util = require ("../helpers/utils/util");
 const auth = require ("../helpers/utils/auth");
+const userDB = require ("../helpers/dbHelpers/user");
 
-exports.verifyToken = (requestHeader) => {
+exports.verifyToken = async (requestHeader) => {
     const token = requestHeader.token;
     if(!token) {
         return util.buildResponse(401, {
@@ -10,12 +11,19 @@ exports.verifyToken = (requestHeader) => {
         });
     }
 
-    const verification = auth.verifyToken(token);
+    const user = auth.userFromToken(token);
+    const username = user.username
     console.log(token)
-    console.log(verification);
+    console.log(user)
+    console.log(username)
 
-    if (!verification.verified) {
-        return util.buildResponse(420, verification.message);
+    const dynamoUser = await userDB.getUser(username)
+
+    if (!dynamoUser) {
+        return util.buildResponse(401, {
+            verified: false,
+            message: "invalid username",
+        });
     }
 
     return util.buildResponse(200, {
