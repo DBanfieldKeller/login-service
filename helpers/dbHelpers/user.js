@@ -9,6 +9,8 @@ const dynamoDB = new AWS.DynamoDB.DocumentClient({ apiVersion: "2012-08-10"});
 
 const userTable = "user-login";
 
+// DB Get Route
+
 exports.getUser = async (username) => {
     const lowerCaseName = username.toLowerCase()
     const params = {
@@ -29,6 +31,8 @@ exports.getUser = async (username) => {
             }
         );
 };
+
+// DB Put Route
 
 exports.saveUser = async (user) => {
     const params = {

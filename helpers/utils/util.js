@@ -1,3 +1,4 @@
+// lambda response format
 exports.buildResponse = (statusCode, body) => {
     return {
         statusCode: statusCode,

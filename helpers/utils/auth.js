@@ -4,13 +4,14 @@ exports.generateToken = (userInfo) => {
     if (!userInfo) {
         return null;
     }
-
+// TODO: make expiresIn a variable
     return jwt.sign(userInfo, process.env.JWT_SECRET, {
         expiresIn: "1h",
     });
 };
 
-exports.verifyToken = (username, token) => {
+// extract username from token
+exports.userFromToken = (token) => {
     return jwt.verify(token, process.env.JWT_SECRET, (error, response) => {
         if (error) {
             return {
@@ -19,15 +20,8 @@ exports.verifyToken = (username, token) => {
                 error: error,
             };
         }
-        if (response.username !== username) {
-            return {
-                verified: false,
-                message: "Invalid user",
-            };
-        }
         return {
-            verified: true,
-            message: "verified",
+             username: response.username
         };
     });
 };
