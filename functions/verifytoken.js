@@ -4,6 +4,7 @@ const userDB = require ("../helpers/dbHelpers/user");
 
 exports.verifyToken = async (requestHeader) => {
     const token = requestHeader.token;
+    // check if token exists
     if(!token) {
         return util.buildResponse(401, {
             verified: false,
@@ -11,15 +12,12 @@ exports.verifyToken = async (requestHeader) => {
         });
     }
 
+    // extract data from token
     const tokenData = auth.userFromToken(token);
     const username = tokenData.username
     const error = tokenData.error
-    console.log(token)
-    console.log(tokenData)
-    console.log(username)
 
-   
-
+    // check for token error
     if (error) {
         return util.buildResponse(401, {
             verified: false,
@@ -27,6 +25,7 @@ exports.verifyToken = async (requestHeader) => {
         })
     }
 
+    // check if username extracted from token matches a name in the DB
     const dynamoUser = await userDB.getUser(username)
 
     if (!dynamoUser) {
@@ -36,6 +35,7 @@ exports.verifyToken = async (requestHeader) => {
         });
     }
 
+    // if token works, 
     return util.buildResponse(200, {
         verified: true,
         message: "success",

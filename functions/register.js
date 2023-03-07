@@ -7,12 +7,14 @@ exports.register = async (userInfo) => {
     const name = userInfo.name;
     const password = userInfo.password;
 
+    // check for blank fields
     if (!username || !password || !name) {
         return util.buildResponse(401, {
             message: "All fields are required",
         });
     }
 
+    // access DB and check if user already exists
     const dynamoUser = await userDB.getUser(username);
     if (dynamoUser && dynamoUser.username) {
         return util.buildResponse(401, {
@@ -20,21 +22,20 @@ exports.register = async (userInfo) => {
         });
     }
 
+    // encrypt password
     const encryptedPassword = bcrypt.hashSync(password.trim(), 10);
+    // create user object
     const user = {
         name: name,
         username: username.toLowerCase(),
         password: encryptedPassword,
     };
 
+    // store user object
     const savedUserResponse = await userDB.saveUser(user);
     if (!savedUserResponse) {
         return util.buildResponse(503, { message: "server error"});
     }
-
-    const response = util.buildResponse(200, { username: username})
-
-    console.log(response)
 
     return util.buildResponse(200, { username: username});
 };
