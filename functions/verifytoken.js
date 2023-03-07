@@ -11,11 +11,21 @@ exports.verifyToken = async (requestHeader) => {
         });
     }
 
-    const user = auth.userFromToken(token);
-    const username = user.username
+    const tokenData = auth.userFromToken(token);
+    const username = tokenData.username
+    const error = tokenData.error
     console.log(token)
-    console.log(user)
+    console.log(tokenData)
     console.log(username)
+
+   
+
+    if (error) {
+        return util.buildResponse(401, {
+            verified: false,
+            message: `Error : ${error}`
+        })
+    }
 
     const dynamoUser = await userDB.getUser(username)
 
