@@ -4,9 +4,10 @@ const userDB = require("../helpers/dbHelpers/user");
 
 const bcrypt = require("bcryptjs");
 
-exports.login = async (user) => {
-    const username = user.username;
-    const password = user.password;
+exports.login = async (requestBody) => {
+    const username = requestBody.username;
+    const password = requestBody.password;
+    const expiry = requestBody.expiry;
  
     // checks if a username or password has been sent, returns 401 and error message if not
     if (!username || !password) {
@@ -31,20 +32,18 @@ exports.login = async (user) => {
         });
     }
 
-    const userInfo = {
+    const loginInfo = {
         username: dynamoUser.username,
         name: dynamoUser.name,
+        expiry: expiry
     };
 
-    const token = auth.generateToken(userInfo);
+    const token = auth.generateToken(loginInfo);
 
     const response = {
-        user: userInfo,
+        login: loginInfo,
         token: token,
     };
-
-    console.log(token)
-    console.log(typeof token)
 
     return util.buildResponse(200, response)
 };

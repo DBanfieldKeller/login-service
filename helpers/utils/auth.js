@@ -1,12 +1,20 @@
 const jwt = require ("jsonwebtoken");
 
-exports.generateToken = (userInfo) => {
-    if (!userInfo) {
+// generate token
+exports.generateToken = (loginInfo) => {
+    if (!loginInfo) {
         return null;
     }
+    
+    let expiry
+    if (!loginInfo.expiry) {
+        expiry = "1h"
+    } else {
+        expiry = loginInfo.expiry 
+    }
 // TODO: make expiresIn a variable
-    return jwt.sign(userInfo, process.env.JWT_SECRET, {
-        expiresIn: "1h",
+    return jwt.sign(loginInfo, process.env.JWT_SECRET, {
+        expiresIn: expiry,
     });
 };
 
