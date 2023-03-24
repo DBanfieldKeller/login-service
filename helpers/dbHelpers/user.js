@@ -7,7 +7,7 @@ AWS.config.update({ region: "us-east-2"});
 // Create DynamoDB document client
 const dynamoDB = new AWS.DynamoDB.DocumentClient({ apiVersion: "2012-08-10"});
 
-const userTable = "user-login";
+const userTable = "users";
 
 // DB Get Route
 

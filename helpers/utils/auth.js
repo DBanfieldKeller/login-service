@@ -12,7 +12,6 @@ exports.generateToken = (loginInfo) => {
     } else {
         expiry = loginInfo.expiry 
     }
-// TODO: make expiresIn a variable
     return jwt.sign(loginInfo, process.env.JWT_SECRET, {
         expiresIn: expiry,
     });

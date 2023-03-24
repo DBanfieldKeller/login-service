@@ -14,6 +14,7 @@ exports.handler = async (event) => {
     const requestBody = JSON.parse(event.body);
     const requestHeader = event.headers
 
+    // determine incoming request
     let response;
     switch (true) {
         case httpMethod === "POST" && resource === registerPath:
