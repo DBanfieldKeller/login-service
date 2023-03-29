@@ -1,6 +1,6 @@
 const registerPath = "/register";
 const loginPath = "/login";
-const verifyTokenPath = "/verifytoken"
+const verifyTokenPath = "/verifytoken";
 
 const registerService = require("./functions/register");
 const loginService = require("./functions/login");
@@ -10,7 +10,7 @@ const util = require("./helpers/utils/util");
 
 exports.handler = async (event) => {
     console.log(" Request Event : ", event);
-    const { httpMethod, resource} = event;
+    const { httpMethod, resource, pathParameters} = event;
     const requestBody = JSON.parse(event.body);
     const requestHeader = event.headers
 
@@ -26,8 +26,12 @@ exports.handler = async (event) => {
         case httpMethod === "GET" && resource === verifyTokenPath:
             response = await verifyTokenService.verifyToken(requestHeader);
             break;
+        case httpMethod === "PUT":
+            response = util.buildResponse(200, "You did it!");
+            console.log(pathParameters.dataKey);
+            break;
         default:
-            response - util.buildResponse(404, "404 Not Found");
+            response = util.buildResponse(404, "404 Not Found");
     }
 
     return response

@@ -55,3 +55,12 @@ exports.saveUser = async (user) => {
             }
         )
 };
+
+exports.updateUser = async (user) => {
+    const params = {
+        TableName: userTable,
+        Key: {
+            username: user.username
+        }
+    }
+}
