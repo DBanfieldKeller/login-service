@@ -8,7 +8,6 @@ AWS.config.update({ region: "us-east-2"});
 const dynamoDB = new AWS.DynamoDB.DocumentClient({ apiVersion: "2012-08-10"});
 
 const userTable = "users";
-const userDataTable = "userdata";
 
 // DB Get Route
 
@@ -28,7 +27,7 @@ exports.getUser = async (username) => {
                 return response.Item;
             },
             (error) => {
-                console.log("error fetching user", error);
+                console.log("Error fetching user", error);
             }
         );
 };

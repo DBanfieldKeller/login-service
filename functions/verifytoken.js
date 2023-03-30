@@ -10,12 +10,12 @@ exports.verifyToken = async (requestHeader) => {
             verified: false,
             message: "No token",
         });
-    }
+    };
 
     // extract data from token
     const tokenData = auth.userFromToken(token);
-    const username = tokenData.username
-    const error = tokenData.error
+    const username = tokenData.username;
+    const error = tokenData.error;
 
     // check for token error
     if (error) {
@@ -23,7 +23,7 @@ exports.verifyToken = async (requestHeader) => {
             verified: false,
             message: `Error : ${error}`
         })
-    }
+    };
 
     // check if username extracted from token matches a name in the DB
     const dynamoUser = await userDB.getUser(username)
@@ -33,7 +33,7 @@ exports.verifyToken = async (requestHeader) => {
             verified: false,
             message: "invalid username",
         });
-    }
+    };
 
     // if token works, 
     return util.buildResponse(200, {
