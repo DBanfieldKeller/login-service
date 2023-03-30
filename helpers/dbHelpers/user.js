@@ -8,6 +8,7 @@ AWS.config.update({ region: "us-east-2"});
 const dynamoDB = new AWS.DynamoDB.DocumentClient({ apiVersion: "2012-08-10"});
 
 const userTable = "users";
+const userDataTable = "userdata";
 
 // DB Get Route
 
@@ -55,12 +56,3 @@ exports.saveUser = async (user) => {
             }
         )
 };
-
-exports.updateUser = async (user) => {
-    const params = {
-        TableName: userTable,
-        Key: {
-            username: user.username
-        }
-    }
-}
