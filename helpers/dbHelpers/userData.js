@@ -26,7 +26,7 @@ exports.getUserData = async (username, dataType) =>{
                 return response.Item;
             },
             (error) => {
-                console.log("error fetching user data", error)
+                console.log("error fetching user data", error);
             }
         )
 };

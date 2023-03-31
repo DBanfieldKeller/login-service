@@ -34,7 +34,7 @@ exports.handler = async (event) => {
             response = await userDataUpdateService.updateUserData(requestBody, requestHeader, dataType);
             break;
         case httpMethod === "GET" && resource == userDataResource:
-            response = await getUserDataService.getUserData(requestHeader);
+            response = await getUserDataService.getUserData(requestHeader,dataType);
             break;
         default:
             response = util.buildResponse(404, "404 Not Found");
