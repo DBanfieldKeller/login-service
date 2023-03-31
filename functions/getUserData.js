@@ -1,14 +1,19 @@
 const util = require("../helpers/utils/util");
+const auth = require("../helpers/utils/auth");
 const userDataDB = require("../helpers/dbHelpers/userData");
 
-exports.getUserData = async (requestBody) => {
-    const username = requestBody.username;
-    const dataType = requestBody.dataType;
+exports.getUserData = async (requestHeader) => {
 
-    if(!username || !dataType) {
+    // extract data from token
+    const tokenData = auth.userFromToken(requestHeader.token);
+    const username = tokenData.username;
+    const error = tokenData.error;
+
+    // check for token error
+    if (error) {
         return util.buildResponse(401, {
-            message: "Username and data type are required"
-        });
+            message: `Token error: ${error}`
+        })
     };
     
     const userData = await userDataDB.getUserData(username, dataType);

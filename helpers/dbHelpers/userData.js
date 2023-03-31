@@ -33,14 +33,14 @@ exports.getUserData = async (username, dataType) =>{
 
 
 // DB update
-exports.updateUserData = async (username, dataType, dataKey, newData) => {
+exports.updateUserData = async (username, dataType, newData) => {
     const params = {
         TableName: userDataTable,
         Key: {
             username: username,
             datatype: dataType
         },
-        UpdateExpression: `set ${dataKey} = :x`,
+        UpdateExpression: `set dataValue = :x`,
         ExpressionAttributeValues: {
             ":x": `${newData}`
         }

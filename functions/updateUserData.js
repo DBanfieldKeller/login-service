@@ -2,9 +2,8 @@ const util = require("../helpers/utils/util");
 const auth = require("../helpers/utils/auth");
 const userDataDB = require("../helpers/dbHelpers/userData");
 
-exports.updateUserData = async (requestBody, requestHeader, dataKey) => {
+exports.updateUserData = async (requestBody, requestHeader, dataType) => {
     // extract data from body
-    const dataType = requestBody.dataType;
     const newData = requestBody.newData;
 
     // extract data from token
@@ -20,7 +19,7 @@ exports.updateUserData = async (requestBody, requestHeader, dataKey) => {
     };
 
     //call update function for userdata DB
-    const updatedUserData = await userDataDB.updateUserData(username, dataType, dataKey, newData);
+    const updatedUserData = await userDataDB.updateUserData(username, dataType, newData);
 
     //check if update successful
     if(!updatedUserData) {

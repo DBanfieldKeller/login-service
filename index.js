@@ -1,8 +1,7 @@
 const registerResource = "/register";
 const loginResource = "/login";
 const verifyTokenResource = "/verifytoken";
-const userDataResource = "/userdata";
-const userDataKeyResource = "/userdata/{dataKey}";
+const userDataResource = "/userdata/{dataType}";
 
 const registerService = require("./functions/register");
 const loginService = require("./functions/login");
@@ -17,7 +16,7 @@ exports.handler = async (event) => {
     const { httpMethod, resource, pathParameters} = event;
     const requestBody = JSON.parse(event.body);
     const requestHeader = event.headers;
-    const dataKey = pathParameters?.dataKey;
+    const dataType = pathParameters?.dataType;
 
     // determine incoming request
     let response;
@@ -31,12 +30,11 @@ exports.handler = async (event) => {
         case httpMethod === "GET" && resource === verifyTokenResource:
             response = await verifyTokenService.verifyToken(requestHeader);
             break;
-        case httpMethod === "PUT" && resource === userDataKeyResource:
-            response = await userDataUpdateService.updateUserData(requestBody, requestHeader, dataKey);
-            console.log(dataKey);
+        case httpMethod === "PUT" && resource === userDataResource:
+            response = await userDataUpdateService.updateUserData(requestBody, requestHeader, dataType);
             break;
         case httpMethod === "GET" && resource == userDataResource:
-            response = await getUserDataService.getUserData(requestBody);
+            response = await getUserDataService.getUserData(requestHeader);
             break;
         default:
             response = util.buildResponse(404, "404 Not Found");
