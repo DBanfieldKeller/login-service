@@ -42,7 +42,7 @@ exports.updateUserData = async (username, dataType, newData) => {
         },
         UpdateExpression: `set dataValue = :x`,
         ExpressionAttributeValues: {
-            ":x": `${newData}`
+            ":x": newData
         }
     };
 
