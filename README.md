@@ -22,7 +22,7 @@ N/A
  
  ## Usage
 
-There are 3 calls that can be made to the API, a POST login route (/login), a POST register route (/register), and a GET verification route (/verifytoken).
+There are 3 calls that can be made to the user API, a POST login route (/login), a POST register route (/register), and a GET verification route (/verifytoken). Additionally, there are GET and PUT routes available for calls to the userdata table.
 
 ## License
 This application is available under the MIT license.
